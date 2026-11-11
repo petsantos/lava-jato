@@ -27,7 +27,7 @@ LavaJato Pro é uma solução completa para automação de logística de lava-ja
 
 1. **Clone o repositório**:
    ```bash
-   git clone https://github.com/seu-usuario/lava-jato-pro.git
+   git clone https://github.com/petsantos/lava-jato.git
    cd lava-jato-pro
    ```
 

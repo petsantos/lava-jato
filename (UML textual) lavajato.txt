@@ -1,0 +1,112 @@
+(UML textual) lavajato
+
+Class Cliente
+id: int
+nome: string
+telefone: string
+placa: string
+dataCadastro: datetime
+Regras associadas:
+Identificação primária via placa.
+Telefone como validação adicional ao registrar novo cliente.
+Relações:
+Cliente 1..* Agendamento
+Class Servico
+id: int
+nome: string
+descricao: string
+duracaoMinutos: int
+categoria: string (ex.: simples, interna detalhada, polimento, aspiração, motor)
+Observações:
+Duração definida conforme planejamento:
+
+Simples externa: 45
+Aspiração: 15
+Limpeza interna detalhada: 240
+Polimento simples: 90
+Polimento cristalizado: 360
+Motor: 60
+
+
+Class Agendamento
+id: int
+clienteId: int
+dataHoraInicio: datetime
+dataHoraPrevistaEntrega: datetime
+numeroNaFila: int (1 a 6)
+status: enum {AGENDADO, CANCELADO, CONCLUIDO}
+criadoEm: datetime
+Regras associadas:
+Cancelamento permitido até 5 horas antes.
+Estimativa de entrega depende da fila e da duração acumulada dos serviços anteriores.
+Agendamentos acima da capacidade entram em fila automática conforme regras RB2 / lógica da fila.
+Class AgendamentoServico
+id: int
+agendamentoId: int
+servicoId: int
+Função:
+Representa a relação N:N entre Agendamento e Servico.
+Lógica da Fila (como pseudo‑funções UML)function calcularDuracaoTotal(agendamento):
+    retornar soma(servico.duracaoMinutos)
+
+function determinarPosicaoNaFila(horarioDesejado):
+    retornar quantidadeDeAgendamentosExistentesNoHorario + 1
+
+function calcularEntrega(agendamento, fila):
+    if fila.posicao <= 2:
+        retorno = agendamento.duracao
+    if fila.posicao in [3,4]:
+        retorno = duracaoDoServicoMaisCurtoEntrePrimeirosDois + agendamento.duracao
+    if fila.posicao in [5,6]:
+        retorno = somaDeTodasAsDuracoesAnteriores + agendamento.duracao
+    retornar retorno + variacaoAleatoria(0–30 minutos)Relacionamentos (UML textual)Cliente "1" --- "0..*" Agendamento
+
+Agendamento "1" --- "1..*" AgendamentoServico
+
+Servico "1" --- "0..*" AgendamentoServicoVisão UML condensada (estilo blocado)
+
++----------------+
+|    Cliente     |
++----------------+
+| id             |
+| nome           |
+| telefone       |
+| placa          |
+| dataCadastro   |
++----------------+
+         |
+         | 1..*
+         v
++----------------+
+|  Agendamento   |
++----------------+
+| id             |
+| clienteId      |
+| dataHoraInicio |
+| dataHoraPrevistaEntrega |
+| numeroNaFila   |
+| status         |
+| criadoEm       |
++----------------+
+         |
+         | 1..*
+         v
++------------------------+
+|   AgendamentoServico   |
++------------------------+
+| id                     |
+| agendamentoId          |
+| servicoId              |
++------------------------+
+         ^
+         | 0..*
+         |
++----------------+
+|    Servico     |
++----------------+
+| id             |
+| nome           |
+| descricao      |
+| categoria      |
+| duracaoMinutos |
++----------------+

@@ -1,0 +1,153 @@
+{
+  "_type": "export",
+  "__export_format": 4,
+  "resources": [
+    {
+      "__export_format": 4,
+      "description": "LavaJato Pro API",
+      "name": "LavaJato Pro",
+      "data": {
+        "environment": {
+          "base_url": "http://localhost:3001"
+        }
+      },
+      "type": "environment"
+    },
+    {
+      "__export_format": 4,
+      "description": "Endpoints para teste do Sistema de LavaJato",
+      "name": "Endpoints Operacionais",
+      "data": {
+        "folders": [
+          {
+            "id": "f1",
+            "name": "Sistema",
+            "requests": [
+              {
+                "id": "r1",
+                "name": "Health Check",
+                "method": "GET",
+                "url": "{{ _.base_url }}/api/health"
+              },
+              {
+                "id": "r2",
+                "name": "Ver Fila Atual",
+                "method": "GET",
+                "url": "{{ _.base_url }}/api/queue"
+              }
+            ]
+          },
+          {
+            "id": "f2",
+            "name": "Clientes",
+            "requests": [
+              {
+                "id": "r3",
+                "name": "Listar Todos",
+                "method": "GET",
+                "url": "{{ _.base_url }}/api/clientes"
+              },
+              {
+                "id": "r4",
+                "name": "Buscar por Placa",
+                "method": "GET",
+                "url": "{{ _.base_url }}/api/clientes/placa/ABC-1234"
+              },
+              {
+                "id": "r5",
+                "name": "Criar Cliente",
+                "method": "POST",
+                "url": "{{ _.base_url }}/api/clientes",
+                "body": {
+                  "mimeType": "application/json",
+                  "text": "{\n  \"nome\": \"Novo Cliente\",\n  \"telefone\": \"11999990000\",\n  \"placa\": \"XYZ-0000\"\n}"
+                }
+              },
+              {
+                "id": "r6",
+                "name": "Atualizar Cliente",
+                "method": "PUT",
+                "url": "{{ _.base_url }}/api/clientes/1",
+                "body": {
+                  "mimeType": "application/json",
+                  "text": "{\n  \"nome\": \"Cliente Editado\",\n  \"telefone\": \"11999990000\",\n  \"placa\": \"XYZ-0000\"\n}"
+                }
+              },
+              {
+                "id": "r7",
+                "name": "Remover Cliente",
+                "method": "DELETE",
+                "url": "{{ _.base_url }}/api/clientes/1"
+              }
+            ]
+          },
+          {
+            "id": "f3",
+            "name": "Serviços",
+            "requests": [
+              {
+                "id": "r8",
+                "name": "Listar Todos",
+                "method": "GET",
+                "url": "{{ _.base_url }}/api/servicos"
+              },
+              {
+                "id": "r9",
+                "name": "Criar Serviço",
+                "method": "POST",
+                "url": "{{ _.base_url }}/api/servicos",
+                "body": {
+                  "mimeType": "application/json",
+                  "text": "{\n  \"nome\": \"Lavagem Premium\",\n  \"descricao\": \"Completa com cera\",\n  \"duracaoMinutos\": 120,\n  \"categoria\": \"Premium\"\n}"
+                }
+              },
+              {
+                "id": "r10",
+                "name": "Atualizar Serviço",
+                "method": "PUT",
+                "url": "{{ _.base_url }}/api/servicos/1",
+                "body": {
+                  "mimeType": "application/json",
+                  "text": "{\n  \"nome\": \"Lavagem Premium v2\",\n  \"descricao\": \"Com cera italiana\",\n  \"duracaoMinutos\": 150,\n  \"categoria\": \"Premium\"\n}"
+                }
+              },
+              {
+                "id": "r11",
+                "name": "Remover Serviço",
+                "method": "DELETE",
+                "url": "{{ _.base_url }}/api/servicos/1"
+              }
+            ]
+          },
+          {
+            "id": "f4",
+            "name": "Agendamentos",
+            "requests": [
+              {
+                "id": "r12",
+                "name": "Criar Agendamento",
+                "method": "POST",
+                "url": "{{ _.base_url }}/api/agendamentos",
+                "body": {
+                  "mimeType": "application/json",
+                  "text": "{\n  \"clienteId\": 1,\n  \"servicos\": [1, 2],\n  \"dataHoraInicio\": \"2026-06-18T10:00:00Z\"\n}"
+                }
+              },
+              {
+                "id": "r13",
+                "name": "Atualizar Status",
+                "method": "PATCH",
+                "url": "{{ _.base_url }}/api/agendamentos/1/status",
+                "body": {
+                  "mimeType": "application/json",
+                  "text": "{\n  \"status\": \"EM_LAVAGEM\"\n}"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "type": "request_collection"
+    }
+  ]
+}
